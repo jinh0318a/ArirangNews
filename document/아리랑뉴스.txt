@@ -15,7 +15,8 @@ https://www.data.go.kr/data/15108015/openapi.do#/API%20%EB%AA%A9%EB%A1%9D/news
 
 영어기사이기때문에 자동 번역 기능이 있었으면 좋겠음- 구글번역 x 
 ---> GPT API 를 활용해서 기사 제목, 내용을 한글로 번역해주는 기능을 만들어 보겠음
-
+Google Cloud Translation
+https://cloud.google.com/translate/automl/pricing?hl=ko
 
 디자인 컨셉
 
