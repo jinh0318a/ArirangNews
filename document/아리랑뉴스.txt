@@ -2,6 +2,10 @@
 https://www.data.go.kr/data/15108015/openapi.do#/API%20%EB%AA%A9%EB%A1%9D/news
 아리랑국제방송 뉴스 스크립트
 기사제목, 기사내용, 기사주소, url, 썸네일
+09 ~ 21시까지
+
+https://newsapi.org/docs/get-started#top-headlines
+아리랑 뉴스는 한국어 기능이 있어서 국제 뉴스를 전부 긁어오는것도 나쁘지 않을듯
 
 유저 - 댓글, 좋아요
 
@@ -17,6 +21,10 @@ https://www.data.go.kr/data/15108015/openapi.do#/API%20%EB%AA%A9%EB%A1%9D/news
 ---> GPT API 를 활용해서 기사 제목, 내용을 한글로 번역해주는 기능을 만들어 보겠음
 Google Cloud Translation
 https://cloud.google.com/translate/automl/pricing?hl=ko
+
+https://cloud.google.com/translate/docs/advanced/discovering-supported-languages-v3?hl=ko#translate_v3_get_supported_languages-java
+
+https://cloud.google.com/translate/docs/basic/translating-text?hl=ko
 
 디자인 컨셉
 
