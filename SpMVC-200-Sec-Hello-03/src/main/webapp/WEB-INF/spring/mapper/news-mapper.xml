@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.callor.hello.dao.NewsDao">
+
+	<select id="exists" resultType="boolean">
+		SELECT COUNT(*) > 0
+		FROM tbl_news
+		WHERE n_title = #{title}
+	</select>
+
+	<insert id="insert">
+		insert into tbl_news (n_title, n_body, n_url,
+		n_image, n_publishedAt)
+		values (#{title},
+		#{description},
+		#{url},
+		#{urlToImage}, #{publishedAt})
+	</insert>
+
+
+	<select id="create_news_table">
+		create table tbl_news(
+		n_no int AUTO_INCREMENT primary
+		key,
+		n_title varchar(500),
+		n_body varchar(3000),
+		n_url varchar(500),
+		n_image varchar(500),
+		n_publishedAt varchar(30)
+		);
+	</select>
+</mapper> 

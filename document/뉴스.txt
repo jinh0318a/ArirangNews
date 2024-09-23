@@ -5,7 +5,7 @@ https://www.data.go.kr/data/15108015/openapi.do#/API%20%EB%AA%A9%EB%A1%9D/news
 09 ~ 21시까지
 
 https://newsapi.org/docs/get-started#top-headlines
-아리랑 뉴스는 한국어 기능이 있어서 국제 뉴스를 전부 긁어오는것도 나쁘지 않을듯
+국제 뉴스
 
 유저 - 댓글, 좋아요
 
