@@ -10,15 +10,17 @@
     <title>뉴스 목록</title>
   </head>
   <body>
-    <div>
+    <div th:fragment="content">
       <h1>뉴스 목록</h1>
-      <div>
-        <ul>
-          <li th:each="news : ${newsList}">
-            <a th:href="${news.url}" th:text="${news.title}">뉴스 제목</a>
-          </li>
-        </ul>
-      </div>
+      <ul>
+        <li th:each="translatedNews : ${newsList}">
+          <a
+            th:href="${translatedNews.news.url}"
+            th:text="${translatedNews.translatedTitle}"
+            >뉴스 제목</a
+          >
+        </li>
+      </ul>
     </div>
   </body>
 </html>

@@ -13,12 +13,10 @@ import lombok.ToString;
 @ToString
 public class NewsVO {
 	private int n_no;
-	private String author;
 	private String title;
 	private String description;
 	private String url;
 	private String urlToImage;
 	private String publishedAt;
-	private String content;
 
 }
