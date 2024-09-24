@@ -16,7 +16,7 @@ public interface NewsDao {
 	public List<NewsVO> selectAll();
 
 	@Select("select * from tbl_news where n_no = #{id}")
-	public NewsVO findByNO(int id);
+	public NewsVO findByNO(String id);
 
 	@Select("SELECT * FROM tbl_news WHERE title LIKE CONCAT('%', #{word}, '%') OR description LIKE CONCAT('%', #{word}, '%')")
 	public List<NewsVO> findByKeyword(String word);

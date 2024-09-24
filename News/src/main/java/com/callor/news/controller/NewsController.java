@@ -126,8 +126,8 @@ public class NewsController {
 		}
 	}
 
-	@RequestMapping(value = "/news/article/{n_no}", method = RequestMethod.GET)
-	public String getArticle(@PathVariable("n_no") int n_no, Model model) {
+	@RequestMapping(value = "/article/{n_no}", method = RequestMethod.GET)
+	public String getArticle(@PathVariable("n_no") String n_no, Model model) {
 		NewsVO article = newsDao.findByNO(n_no);
 		if (article != null) {
 			model.addAttribute("article", article);

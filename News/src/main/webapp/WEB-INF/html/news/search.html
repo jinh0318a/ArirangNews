@@ -15,7 +15,11 @@
         <ul class="search">
           <li th:each="news : ${newsList}" class="card news-item">
             <a th:href="@{/article/{n_no}(n_no=${news.n_no})}">
-              <img th:src="${news.urlToImage}" alt="썸네일" class="thumbnail" />
+              <img
+                th:src="${article.urlToImage != null} ? ${article.urlToImage} : '/news/static/images/no-image.jpg'"
+                alt="썸네일"
+                class="thumbnail"
+              />
               <div class="card-body">
                 <p th:text="${news.title}">뉴스 제목</p>
                 <p th:text="${news.description}">뉴스 설명</p>
