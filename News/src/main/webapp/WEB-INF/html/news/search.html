@@ -14,7 +14,7 @@
       <div class="container news-container">
         <ul class="search">
           <li th:each="news : ${newsList}" class="card news-item">
-            <a th:href="@{/article/{n_no}(n_no=${news.n_no})}">
+            <a th:href="@{/news/article/{n_no}(n_no=${news.n_no})}">
               <img
                 th:src="${news.urlToImage != null} ? ${news.urlToImage} : '/news/static/images/no-image-icon.png'"
                 alt="썸네일"
