@@ -3,15 +3,14 @@
   box-sizing: border-box;
   margin: 0;
   padding: 0;
+  font-family: "Arial", sans-serif;
 }
 
-html {
-  height: 100vh;
-  width: 100vw;
-}
-
+html,
 body {
   width: 100%;
+  height: 100%;
+  background-color: #f7f7f7;
 }
 
 a {
@@ -60,10 +59,40 @@ input.search {
   border-radius: 10px;
 }
 
-.news-item {
-  margin-bottom: 20px;
+.container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 20px;
+  padding: 20px;
+  max-width: 1200px;
+  margin: 0 auto;
 }
+
+.card {
+  background-color: white;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 20px;
+}
+
+.card-body {
+  flex: 1;
+}
+
+.card-body p {
+  font-size: 14px;
+  color: #333;
+  margin: 10px 0;
+  line-height: 1.5;
+}
+
 .thumbnail {
-  width: 100%; /* 썸네일 이미지의 너비를 조정할 수 있습니다 */
-  height: auto;
+  width: 100%;
+  height: 150px;
+  object-fit: cover;
+  border-radius: 8px;
+  margin-bottom: 10px;
 }

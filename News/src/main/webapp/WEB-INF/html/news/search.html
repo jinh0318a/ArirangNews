@@ -12,18 +12,22 @@
   <body>
     <div th:fragment="content">
       <h1>검색 결과</h1>
-      <ul>
-        <li th:each="translatedNews : ${newsList}" class="news-item">
-          <a th:href="${translatedNews.news.url}">
-            <img
-              th:src="${translatedNews.news.urlToImage}"
-              alt="썸네일"
-              class="thumbnail"
-            />
-            <span th:text="${translatedNews.translatedTitle}">뉴스 제목</span>
-          </a>
-        </li>
-      </ul>
+      <div class="container news-container">
+        <ul>
+          <li th:each="translatedNews : ${newsList}" class="card news-item">
+            <a th:href="${translatedNews.news.url}">
+              <img
+                th:src="${translatedNews.news.urlToImage}"
+                alt="썸네일"
+                class="thumbnail"
+              />
+              <div class="card-body">
+                <p th:text="${translatedNews.translatedTitle}">뉴스 제목</p>
+              </div>
+            </a>
+          </li>
+        </ul>
+      </div>
     </div>
   </body>
 </html>
