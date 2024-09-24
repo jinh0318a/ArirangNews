@@ -25,6 +25,11 @@ nav.main {
   text-align: center;
   align-items: center;
   justify-content: center;
+  margin: 0 auto;
+  position: sticky;
+  top: 0; /* 페이지 상단에서 고정할 위치 */
+  z-index: 1000; /* 다른 요소 위에 표시 */
+
   ul {
     list-style: none;
     display: flex;
@@ -39,10 +44,6 @@ nav.main {
   li:hover {
     cursor: pointer;
     background-color: #777;
-  }
-
-  li.user:nth-of-type(1) {
-    margin-left: auto;
   }
 }
 
@@ -59,6 +60,10 @@ ul.list {
   li {
     padding: 12px 16px;
     flex: 0 0 50%; /* 추가 */
+
+    &:hover {
+      background-color: #999;
+    }
   }
 }
 
@@ -69,6 +74,7 @@ form {
 div.list,
 div.search {
   height: 100%;
+  text-align: center;
 }
 
 span.word {
@@ -89,7 +95,8 @@ input.search {
 
 .container {
   display: grid;
-  grid-template-columns: repeat(2, 1fr); /* This will create two columns */
+  place-items: center;
+
   gap: 20px; /* Space between cards */
   padding: 20px;
   max-width: 1200px;

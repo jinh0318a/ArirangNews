@@ -3,25 +3,21 @@
   lang="ko"
   xmlns:th="http://www.thymeleaf.org"
   xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-  xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
   layout:decorate="~{/layout}"
 >
   <head>
-    <title>뉴스 목록</title>
+    <title>검색 결과</title>
   </head>
   <body>
     <div th:fragment="content" class="list">
       <div class="container news-container">
         <ul class="list">
-          <li th:each="translatedNews : ${newsList}" class="card news-item">
-            <a th:href="${translatedNews.news.url}">
-              <img
-                th:src="${translatedNews.news.urlToImage}"
-                alt="썸네일"
-                class="thumbnail"
-              />
+          <li th:each="news : ${newsList}" class="card news-item">
+            <a th:href="@{/article/{n_no}(n_no=${news.n_no})}">
+              <img th:src="${news.urlToImage}" alt="썸네일" class="thumbnail" />
               <div class="card-body">
-                <p th:text="${translatedNews.translatedTitle}">뉴스 제목</p>
+                <p th:text="${news.title}">뉴스 제목</p>
+                <p th:text="${news.description}">뉴스 설명</p>
               </div>
             </a>
           </li>

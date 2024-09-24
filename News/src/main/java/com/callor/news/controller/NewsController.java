@@ -2,13 +2,13 @@ package com.callor.news.controller;
 
 import java.io.FileInputStream;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.client.RestTemplate;
@@ -16,7 +16,6 @@ import org.springframework.web.client.RestTemplate;
 import com.callor.news.dao.NewsDao;
 import com.callor.news.models.NewsList;
 import com.callor.news.models.NewsVO;
-import com.callor.news.models.TranslatedNewsDTO;
 import com.callor.news.service.NewsService;
 import com.google.auth.oauth2.GoogleCredentials;
 import com.google.cloud.translate.Translate;
@@ -45,42 +44,32 @@ public class NewsController {
 
 	@RequestMapping(value = "/list", method = RequestMethod.GET)
 	public String list(Model model) {
-		// 서비스 계정 JSON 파일 경로
-		String jsonPath = "C:/Users/KMS203/Desktop/news-project-436506-6f6c011f864a.json"; // 서비스 계정 키 파일 경로
-
 		try {
-			// Credentials 객체 생성
-			GoogleCredentials credentials = GoogleCredentials.fromStream(new FileInputStream(jsonPath));
-			Translate translate = TranslateOptions.newBuilder().setCredentials(credentials).build().getService();
-
+			// 데이터베이스에서 모든 뉴스 목록 가져오기
 			List<NewsVO> newsList = newsDao.selectAll();
-			List<TranslatedNewsDTO> translatedNewsList = new ArrayList<>();
 
-			for (NewsVO news : newsList) {
-				try {
-					Translation translation = translate.translate(news.getTitle(),
-							Translate.TranslateOption.targetLanguage("ko"));
-					translatedNewsList.add(new TranslatedNewsDTO(news, translation.getTranslatedText()));
-
-				} catch (Exception e) {
-					e.printStackTrace();
-					translatedNewsList.add(new TranslatedNewsDTO(news, news.getTitle()));
-				}
-			}
-
-			System.out.println(translatedNewsList.get(0).getNews().getUrlToImage());
-
-			model.addAttribute("newsList", translatedNewsList);
+			// 모델에 뉴스 리스트 추가
+			model.addAttribute("newsList", newsList);
 			return "news/list";
-		} catch (IOException e) {
+		} catch (Exception e) {
 			e.printStackTrace();
-			model.addAttribute("error", "Failed to load credentials");
+			model.addAttribute("error", "뉴스 목록을 가져오는 데 실패했습니다.");
 			return "news/error"; // 오류 페이지로 리다이렉트
 		}
 	}
 
 	@RequestMapping(value = "/search", method = RequestMethod.GET)
 	public String search(String word, Model model) {
+		// 먼저 데이터베이스에서 해당 검색어에 대한 뉴스가 있는지 확인
+		List<NewsVO> existingNewsList = newsDao.findByKeyword(word);
+
+		if (!existingNewsList.isEmpty()) {
+			// 결과가 존재하면 바로 반환
+			model.addAttribute("word", word);
+			model.addAttribute("newsList", existingNewsList);
+			return "news/search";
+		}
+
 		String jsonPath = "C:/Users/KMS203/Desktop/news-project-436506-6f6c011f864a.json";
 
 		try {
@@ -97,24 +86,33 @@ public class NewsController {
 			ResponseEntity<NewsList> response = restTemplate.exchange(apiUrl, HttpMethod.GET, null, NewsList.class);
 
 			List<NewsVO> newsList = response.getBody().getArticles();
-			List<TranslatedNewsDTO> translatedNewsList = new ArrayList<>();
 
 			for (NewsVO news : newsList) {
 				try {
-					Translation titleTranslation = translate.translate(news.getTitle(),
-							Translate.TranslateOption.targetLanguage("ko"));
-					translatedNewsList.add(new TranslatedNewsDTO(news, titleTranslation.getTranslatedText()));
-					if (!newsDao.exists(news.getTitle())) { // 중복 체크
-						newsDao.insert(news);
+					// 타이틀과 설명 번역
+					String translatedTitle = translate
+							.translate(news.getTitle(), Translate.TranslateOption.targetLanguage("ko"))
+							.getTranslatedText();
+					String translatedDescription = translate
+							.translate(news.getDescription(), Translate.TranslateOption.targetLanguage("ko"))
+							.getTranslatedText();
+
+					// 번역된 내용을 news 객체에 설정
+					news.setTitle(translatedTitle); // 원래 title 필드에 번역된 제목 저장
+					news.setDescription(translatedDescription); // 원래 description 필드에 번역된 설명 저장
+
+					// 중복 체크 후 저장
+					if (!newsDao.exists(news.getTitle())) {
+						newsDao.insert(news); // 번역된 내용이 저장된 news 객체 저장
 					}
 				} catch (Exception e) {
 					e.printStackTrace();
-					translatedNewsList.add(new TranslatedNewsDTO(news, news.getTitle()));
+					// 예외 처리 (예: 기본 타이틀 및 설명 사용)
 				}
 			}
 
 			model.addAttribute("word", word);
-			model.addAttribute("newsList", translatedNewsList);
+			model.addAttribute("newsList", newsList); // 번역된 newsList 전달
 			return "news/search";
 
 		} catch (IOException e) {
@@ -124,6 +122,17 @@ public class NewsController {
 		} catch (Exception e) {
 			e.printStackTrace();
 			model.addAttribute("error", "뉴스 검색 실패");
+			return "news/error";
+		}
+	}
+
+	@RequestMapping(value = "/news/article/{n_no}", method = RequestMethod.GET)
+	public String getArticle(@PathVariable("n_no") int n_no, Model model) {
+		NewsVO article = newsDao.findByNO(n_no);
+		if (article != null) {
+			model.addAttribute("article", article);
+			return "news/article";
+		} else {
 			return "news/error";
 		}
 	}

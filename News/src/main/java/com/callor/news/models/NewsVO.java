@@ -17,6 +17,6 @@ public class NewsVO {
 	private String description;
 	private String url;
 	private String urlToImage;
-	private String publishedAt;
+	private String publishedAt;	
 
 }

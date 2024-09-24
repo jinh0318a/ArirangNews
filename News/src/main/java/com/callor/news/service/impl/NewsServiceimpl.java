@@ -2,6 +2,7 @@ package com.callor.news.service.impl;
 
 import java.net.URI;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.springframework.http.HttpMethod;
 import org.springframework.http.MediaType;
@@ -64,6 +65,8 @@ public class NewsServiceimpl implements NewsService {
 		}
 
 		List<NewsVO> newsList = newsListEntity.getBody().getArticles();
+
+
 		return newsList;
 	}
 
