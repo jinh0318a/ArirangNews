@@ -12,7 +12,7 @@ public interface NewsDao {
 
 	public boolean exists(String title);
 
-	@Select("select * from tbl_news")
+	@Select("select * from tbl_news order by publishedAt desc;")
 	public List<NewsVO> selectAll();
 
 }

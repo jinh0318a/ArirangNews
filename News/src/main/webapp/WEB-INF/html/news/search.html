@@ -10,10 +10,10 @@
     <title>검색 결과</title>
   </head>
   <body>
-    <div th:fragment="content">
-      <h1>검색 결과</h1>
+    <div th:fragment="content" class="search">
+      <h1><span th:text="${word}" class="word"></span>검색 결과</h1>
       <div class="container news-container">
-        <ul>
+        <ul class="search">
           <li th:each="translatedNews : ${newsList}" class="card news-item">
             <a th:href="${translatedNews.news.url}">
               <img

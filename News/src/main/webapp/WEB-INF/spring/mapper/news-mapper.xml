@@ -13,7 +13,7 @@
 
 	<insert id="insert">
 		insert into tbl_news (title, description, url,
-		image,
+		urlToImage,
 		publishedAt)
 		values (#{title},
 		#{description},

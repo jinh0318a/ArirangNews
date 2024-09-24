@@ -61,15 +61,15 @@ public class NewsController {
 					Translation translation = translate.translate(news.getTitle(),
 							Translate.TranslateOption.targetLanguage("ko"));
 					translatedNewsList.add(new TranslatedNewsDTO(news, translation.getTranslatedText()));
-					
+
 				} catch (Exception e) {
 					e.printStackTrace();
 					translatedNewsList.add(new TranslatedNewsDTO(news, news.getTitle()));
 				}
 			}
-			
+
 			System.out.println(translatedNewsList.get(0).getNews().getUrlToImage());
-			
+
 			model.addAttribute("newsList", translatedNewsList);
 			return "news/list";
 		} catch (IOException e) {
@@ -113,6 +113,7 @@ public class NewsController {
 				}
 			}
 
+			model.addAttribute("word", word);
 			model.addAttribute("newsList", translatedNewsList);
 			return "news/search";
 
