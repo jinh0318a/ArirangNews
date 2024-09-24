@@ -1,14 +1,14 @@
 <!DOCTYPE html>
 <html
   lang="ko"
-  xmlns:th="http://wwww.thymeleaf.org"
+  xmlns:th="http://www.thymeleaf.org"
   xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
   xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
 >
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Document</title>
+    <title>뉴스</title>
     <link
       href="../../static/css/main.css"
       th:href="@{/static/css/main.css}"
@@ -26,23 +26,17 @@
   <body>
     <nav class="main">
       <ul>
-        <li class="home">홈</li>
-
-        <li class="user login" sec:authorize="isAnonymous()">로그인</li>
-        <li class="user join" sec:authorize="isAnonymous()">회원가입</li>
-
-        <li class="user mypage" sec:authorize="isAuthenticated()">
-          <strong>MyPage</strong><span> </span>
-        </li>
-        <li class="user logout" sec:authorize="isAuthenticated()">
-          <form
-            method="POST"
-            th:action="@{/user/logout}"
-            onclick="this.submit()"
-            sec:authorize="isAuthenticated()"
-          >
-            로그아웃
-          </form>
+        <li class="home">뉴스 홈</li>
+        <li class="news list">리스트</li>
+   
+        <form th:action="@{/news/search}">
+          <input
+            type="text"
+            name="word"
+            placeholder="검색어를 입력해주세요"
+            class="search"
+          />
+        </form>
         </li>
       </ul>
     </nav>

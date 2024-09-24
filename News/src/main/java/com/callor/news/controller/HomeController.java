@@ -1,36 +1,32 @@
 package com.callor.news.controller;
 
-
-import java.text.DateFormat;
-import java.util.Date;
-import java.util.Locale;
+import java.util.List;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-/**
- * Handles requests for the application home page.
- */
+import com.callor.news.models.NewsVO;
+import com.callor.news.service.NewsService;
+
 @Controller
 public class HomeController {
+
+	private final NewsService newsService;
 	
 	
-	/**
-	 * Simply selects the home view to render by returning its name.
-	 */
+	public HomeController(NewsService newsService) {
+		super();
+		this.newsService = newsService;
+	}
+
+
 	@RequestMapping(value = "/", method = RequestMethod.GET)
-	public String home(Locale locale, Model model) {
-		
-		Date date = new Date();
-		DateFormat dateFormat = DateFormat.getDateTimeInstance(DateFormat.LONG, DateFormat.LONG, locale);
-		
-		String formattedDate = dateFormat.format(date);
-		
-		model.addAttribute("serverTime", formattedDate );
-		
+	public String home(Model model) {
+		List<NewsVO> newNewsList = newsService.getNews();
+		newsService.saveNews(newNewsList);
 		return "home";
 	}
-	
+
 }

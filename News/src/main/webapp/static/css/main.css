@@ -14,15 +14,26 @@ body {
   width: 100%;
 }
 
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
 nav.main {
   background-color: #555;
   color: white;
-
+  display: flex;
+  text-align: center;
+  align-items: center;
+  justify-content: center;
   ul {
     list-style: none;
     display: flex;
+    width: 80%;
+    padding: 10px;
     li {
       padding: 12px 16px;
+
       &:hover {
         cursor: pointer;
         background-color: #777;
@@ -32,5 +43,27 @@ nav.main {
     li.user:nth-of-type(1) {
       margin-left: auto;
     }
+
+    form {
+      margin-top: 5px;
+    }
   }
+}
+
+form.search {
+  text-align: center;
+}
+input.search {
+  width: 800px;
+  height: 35px;
+  border: 1px solid transparent;
+  border-radius: 10px;
+}
+
+.news-item {
+  margin-bottom: 20px;
+}
+.thumbnail {
+  width: 100%; /* 썸네일 이미지의 너비를 조정할 수 있습니다 */
+  height: auto;
 }

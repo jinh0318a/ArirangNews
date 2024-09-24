@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html
+  lang="ko"
+  xmlns:th="http://www.thymeleaf.org"
+  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+  xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+  layout:decorate="~{/layout}"
+>
+  <head>
+    <title>뉴스 목록</title>
+  </head>
+  <body>
+    <div th:fragment="content">
+      <h1>뉴스 목록</h1>
+      <ul>
+        <li th:each="translatedNews : ${newsList}" class="news-item">
+          <a th:href="${translatedNews.news.url}">
+            <img
+              th:src="${translatedNews.news.urlToImage}"
+              alt="썸네일"
+              class="thumbnail"
+            />
+            <span th:text="${translatedNews.translatedTitle}">뉴스 제목</span>
+          </a>
+        </li>
+      </ul>
+    </div>
+  </body>
+</html>
