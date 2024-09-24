@@ -16,7 +16,7 @@
           <li th:each="news : ${newsList}" class="card news-item">
             <a th:href="@{/article/{n_no}(n_no=${news.n_no})}">
               <img
-                th:src="${article.urlToImage != null} ? ${article.urlToImage} : '/news/static/images/no-image.jpg'"
+                th:src="${article.urlToImage != null} ? ${article.urlToImage} : '/news/static/images/no-image-icon.png'"
                 alt="썸네일"
                 class="thumbnail"
               />
