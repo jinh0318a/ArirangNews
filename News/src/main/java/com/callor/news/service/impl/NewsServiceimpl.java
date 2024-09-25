@@ -8,6 +8,8 @@ import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -28,9 +30,12 @@ import com.google.cloud.translate.Translate;
 import com.google.cloud.translate.TranslateOptions;
 import com.google.cloud.translate.Translation;
 
+import lombok.extern.slf4j.Slf4j;
+
+@Slf4j
 @Service
 public class NewsServiceimpl implements NewsService {
-
+	private static final Logger logger = LoggerFactory.getLogger(NewsServiceimpl.class);
 	private final NewsDao newsDao;
 
 	public NewsServiceimpl(NewsDao newsDao) {
@@ -136,7 +141,6 @@ public class NewsServiceimpl implements NewsService {
 
 	@Override
 	public List<NewsVO> searchNews(String word) throws IOException {
-
 		String jsonPath = "C:/Users/KMS203/Desktop/news-project-436506-6f6c011f864a.json";
 
 		// Google Translate 설정
@@ -147,18 +151,27 @@ public class NewsServiceimpl implements NewsService {
 		Translation translation = translate.translate(word, Translate.TranslateOption.targetLanguage("en"));
 		String translatedWord = translation.getTranslatedText();
 
+		// 어제 날짜 설정
+		String yesterday = new SimpleDateFormat("yyyy-MM-dd").format(new Date(System.currentTimeMillis() - 86400000L));
+
 		// API 요청 URL 생성
 		String apiKey = APIConfig.API_KEY;
-		String today = new SimpleDateFormat("yyyy-MM-dd").format(new Date());
 		String apiUrl = String.format(
 				"https://newsapi.org/v2/everything?q=%s&from=%s&to=%s&sortBy=popularity&apiKey=%s", translatedWord,
-				today, today, apiKey);
+				yesterday, yesterday, apiKey);
 
 		// 뉴스 API 호출
 		RestTemplate restTemplate = new RestTemplate();
 		ResponseEntity<NewsList> response = restTemplate.exchange(apiUrl, HttpMethod.GET, null, NewsList.class);
 
+		if (!response.getStatusCode().is2xxSuccessful() || response.getBody() == null) {
+			logger.error("Failed to fetch news: {}", response.getStatusCode());
+			throw new RuntimeException("Failed to fetch news: " + response.getStatusCode());
+		}
+
 		List<NewsVO> newsList = response.getBody().getArticles();
+		logger.info("Fetched news articles count: {}", newsList.size());
+
 		// 불필요한 URL 필터링
 		newsList = newsList.stream().filter(news -> !news.getUrl().contains("https://removed.com"))
 				.collect(Collectors.toList());
@@ -180,12 +193,13 @@ public class NewsServiceimpl implements NewsService {
 					newsDao.insert(news);
 				}
 			} catch (Exception e) {
-				e.printStackTrace();
+				logger.error("Error translating news: {}", news.getTitle(), e);
 			}
 		}
 
 		// 검색된 뉴스 리스트 반환
-		return newsDao.findByKeyword(word);
+		List<NewsVO> result = newsDao.findByKeyword(word);
+		return result;
 	}
 
 	@Override
