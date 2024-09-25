@@ -1,17 +1,29 @@
-- 뉴스기사
-https://www.data.go.kr/data/15108015/openapi.do#/API%20%EB%AA%A9%EB%A1%9D/news
-아리랑국제방송 뉴스 스크립트
-기사제목, 기사내용, 기사주소, url, 썸네일
+# 프로젝트 소개
 
-유저 - 댓글, 좋아요
+## 국제 뉴스 사이트
 
-기사제목, 썸네일을 리스트로 뽑아서
-클릭시 상세보기에서 iframe 으로 기사 원문을 보여주고
-조회수, 댓글 기능 추가?
+- https://newsapi.org/ 의 API를 활용하여 국제뉴스를 제공 받고, Googl Cloud Translation 을 활용하여 번역하여 보여주는 사이트
 
-기사 리스트 조회수, 댓글 많은 순으로 정렬
+- 개발 기간 : 2024-09-23 ~ 2024-10-18
 
-기사 제목 or 내용 으로 검색
+- 기술스택 : Spring MVC, MySQL, VSCode
 
-영어기사이기때문에 자동 번역 기능이 있었으면 좋겠음- 구글번역 x 
----> GPT API 를 활용해서 기사 제목, 내용을 한글로 번역해주는 기능을 만들어 보겠음
+- 사용 API : https://newsapi.org/ (뉴스), Googl Cloud Translation (번역)
+
+## 프로젝트 설정
+
+- project maven update
+
+- com.callor.news.confing 폴더에 APIConfig 클래스를 만들고 google cloud 와 newsapi 사이트에서 받은 API KEY 설정
+
+- db-context.xml 파일의 BasicDataSource bean 에서 DB 설정 및 MySQL 로 테이블 생성하기
+
+![alt text](image.png)
+
+## 프로젝트 기능
+
+- 최신 뉴스 불러오기 및 검색 (제목, 내용)
+
+- 국가별 헤드라인 뉴스
+
+- 미디어 소개
