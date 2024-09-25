@@ -18,6 +18,8 @@ import org.springframework.web.client.RestTemplate;
 
 import com.callor.news.config.APIConfig;
 import com.callor.news.dao.NewsDao;
+import com.callor.news.models.MediaList;
+import com.callor.news.models.MediaVO;
 import com.callor.news.models.NewsList;
 import com.callor.news.models.NewsVO;
 import com.callor.news.service.NewsService;
@@ -134,6 +136,7 @@ public class NewsServiceimpl implements NewsService {
 
 	@Override
 	public List<NewsVO> searchNews(String word) throws IOException {
+
 		String jsonPath = "C:/Users/KMS203/Desktop/news-project-436506-6f6c011f864a.json";
 
 		// Google Translate 설정
@@ -184,4 +187,59 @@ public class NewsServiceimpl implements NewsService {
 		// 검색된 뉴스 리스트 반환
 		return newsDao.findByKeyword(word);
 	}
+
+	@Override
+	public List<MediaVO> getMedias() {
+		String apiURL = "https://newsapi.org/v2/top-headlines/sources?apiKey=" + APIConfig.API_KEY;
+		URI newsURI;
+		try {
+			newsURI = new URI(apiURL);
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		}
+
+		RestTemplate restTemplate = new RestTemplate();
+
+		restTemplate.getInterceptors().add((request, body, execution) -> {
+			ClientHttpResponse response = execution.execute(request, body);
+			response.getHeaders().setContentType(MediaType.APPLICATION_JSON);
+			return response;
+		});
+
+		ResponseEntity<MediaList> mediaListEntity;
+		try {
+			mediaListEntity = restTemplate.exchange(newsURI, HttpMethod.GET, null, MediaList.class);
+		} catch (RestClientException e) {
+			e.printStackTrace();
+			return null;
+		}
+
+		List<MediaVO> mediaList = mediaListEntity.getBody().getSources();
+
+		// Google Translate 설정
+		String jsonPath = "C:/Users/KMS203/Desktop/news-project-436506-6f6c011f864a.json";
+		GoogleCredentials credentials;
+		try {
+			credentials = GoogleCredentials.fromStream(new FileInputStream(jsonPath));
+		} catch (IOException e) {
+			throw new RuntimeException("Failed to load Google credentials", e);
+		}
+		Translate translate = TranslateOptions.newBuilder().setCredentials(credentials).build().getService();
+
+		// 미디어 설명 번역
+		for (MediaVO media : mediaList) {
+			try {
+				String translatedDescription = translate
+						.translate(media.getDescription(), Translate.TranslateOption.targetLanguage("ko"))
+						.getTranslatedText();
+				media.setDescription(translatedDescription);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+
+		return mediaList;
+	}
+
 }

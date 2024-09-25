@@ -10,18 +10,19 @@
   </head>
   <body>
     <div th:fragment="content" class="list">
-      <div class="container news-container">
+      <div class="container media-container">
         <ul class="list">
-          <li th:each="news : ${newsList}" class="card news-item">
-            <a th:href="${news.url}" target="_blank">
-              <img
-                th:src="${news.urlToImage != null} ? ${news.urlToImage} : '/news/static/images/no-image-icon.png'"
-                alt="썸네일"
-                class="thumbnail"
-              />
+          <li th:if="${mediaList == null or mediaList.isEmpty()}">
+            등록된 미디어가 없습니다.
+          </li>
+          <li th:each="media : ${mediaList}" class="card media-item">
+            <a th:href="${media.url}">
               <div class="card-body">
-                <p th:text="${news.title}">뉴스 제목</p>
-                <p th:text="${news.description}">뉴스 설명</p>
+                <p th:text="${media.name}">이름:</p>
+                <p th:text="${media.description}">설명:</p>
+                <p th:text="'카테고리: ' + ${media.category}">카테고리:</p>
+                <p th:text="'언어: ' + ${media.language}">언어:</p>
+                <p th:text="'국가: ' + ${media.country}">국가:</p>
               </div>
             </a>
           </li>

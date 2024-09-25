@@ -2,7 +2,6 @@ package com.callor.news.controller;
 
 import java.io.IOException;
 import java.util.List;
-import java.util.stream.Collectors;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -11,7 +10,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.callor.news.dao.MediaDao;
 import com.callor.news.dao.NewsDao;
+import com.callor.news.models.MediaVO;
 import com.callor.news.models.NewsVO;
 import com.callor.news.service.NewsService;
 
@@ -21,11 +22,13 @@ public class NewsController {
 
 	private final NewsService newsService;
 	private final NewsDao newsDao;
+	private final MediaDao mediaDao;
 
-	public NewsController(NewsService newsService, NewsDao newsDao) {
+	public NewsController(NewsService newsService, NewsDao newsDao, MediaDao mediaDao) {
 		super();
 		this.newsService = newsService;
 		this.newsDao = newsDao;
+		this.mediaDao = mediaDao;
 	}
 
 	@RequestMapping(value = "/getNews", method = RequestMethod.GET)
@@ -83,7 +86,11 @@ public class NewsController {
 	}
 
 	@RequestMapping(value = "/media", method = RequestMethod.GET)
-	public String media() {
+	public String media(Model model) {
+		List<MediaVO> mediaList = mediaDao.findByAll();
+		
+		model.addAttribute("mediaList", mediaList);
+
 		return "news/media";
 	}
 }
