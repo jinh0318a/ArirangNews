@@ -30,6 +30,8 @@ header {
 nav.main {
   background-color: #0263a6;
   color: white;
+  font-weight: 900;
+  font-size: large;
   display: flex;
   justify-content: center;
   padding: 10px 0;
@@ -45,7 +47,7 @@ input.search {
   border: 1px solid transparent;
   border-radius: 10px;
   padding: 0.5rem;
-  margin-left: 5px;
+  margin-left: 10px;
 }
 
 nav.main ul {

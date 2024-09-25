@@ -20,5 +20,8 @@ public interface NewsDao {
 
 	@Select("SELECT * FROM tbl_news WHERE title LIKE CONCAT('%', #{word}, '%') OR description LIKE CONCAT('%', #{word}, '%') order by publishedAt desc")
 	public List<NewsVO> findByKeyword(String word);
+	
+	@Select("select * from tbl_news order by publishedAt desc LIMIT 20")
+	public List<NewsVO> selectLatest();
 
 }

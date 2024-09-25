@@ -74,8 +74,8 @@ public class HomeController {
 
 	@RequestMapping(value = "/", method = RequestMethod.GET)
 	public String home(Model model) {
-		// 홈 페이지에 필요한 데이터 추가
-		List<NewsVO> newsList = newsDao.selectAll(); // DB에서 모든 뉴스 가져오기
+		
+		List<NewsVO> newsList = newsDao.selectLatest(); 
 		model.addAttribute("newsList", newsList);
 		return "home";
 	}

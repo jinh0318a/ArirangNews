@@ -23,7 +23,7 @@
           <li th:each="news : ${newsList}" class="card news-item">
             <a th:href="${news.url}" target="_blank">
               <img
-                th:src="${news.urlToImage != null} ? ${news.urlToImage} : '/news/static/images/no-image-icon.png'"
+                th:src="${news.urlToImage != null} ? ${news.urlToImage} : '/news/static/images/no-image.jpg'"
                 alt="썸네일"
                 class="thumbnail"
               />
