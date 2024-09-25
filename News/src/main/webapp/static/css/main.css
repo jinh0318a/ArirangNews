@@ -244,3 +244,8 @@ div.search {
 *::-webkit-scrollbar {
   display: none;
 }
+
+span.title {
+  font-size: 1.2rem;
+  font-weight: 900;
+}
