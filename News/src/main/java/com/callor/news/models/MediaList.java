@@ -13,9 +13,7 @@ import lombok.ToString;
 @AllArgsConstructor
 @NoArgsConstructor
 @ToString
-public class NewsList {
+public class MediaList {
 	private String status;
-	private int totalResults;
-	private List<NewsVO> articles;
-
+	private List<MediaVO> sources;
 }

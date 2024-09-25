@@ -1,11 +1,14 @@
 package com.callor.news.models;
 
-import lombok.Setter;
-
 import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import lombok.ToString;
 
 @Getter
 @Setter
+@NoArgsConstructor
+@ToString
 public class TranslatedNewsDTO {
 
 	private NewsVO news;

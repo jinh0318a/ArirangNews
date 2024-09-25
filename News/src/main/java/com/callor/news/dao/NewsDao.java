@@ -12,14 +12,13 @@ public interface NewsDao {
 
 	public boolean exists(String title);
 
-	@Select("select * from tbl_news order by publishedAt desc;")
+	@Select("select * from tbl_news order by publishedAt desc")
 	public List<NewsVO> selectAll();
 
 	@Select("select * from tbl_news where n_no = #{id}")
 	public NewsVO findByNO(String id);
 
-	@Select("SELECT * FROM tbl_news WHERE title LIKE CONCAT('%', #{word}, '%') OR description LIKE CONCAT('%', #{word}, '%')")
+	@Select("SELECT * FROM tbl_news WHERE title LIKE CONCAT('%', #{word}, '%') OR description LIKE CONCAT('%', #{word}, '%') order by publishedAt desc")
 	public List<NewsVO> findByKeyword(String word);
-
 
 }

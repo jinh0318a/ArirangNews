@@ -6,7 +6,31 @@
   xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
   layout:decorate="~{/layout}"
 >
-  <div th:fragment="content">
-    <h1>홈</h1>
-  </div>
+  <head>
+    <title>홈</title>
+  </head>
+  <body>
+    <div th:fragment="content" class="list">
+      <div class="container news-container">
+        <ul class="list">
+          <li th:if="${newsList == null or newsList.isEmpty()}">
+            헤드라인 뉴스가 없습니다.
+          </li>
+          <li th:each="news : ${newsList}" class="card news-item">
+            <a th:href="@{/news/article/{n_no}(n_no=${news.n_no})}">
+              <img
+                th:src="${news.urlToImage != null} ? ${news.urlToImage} : '/news/static/images/no-image-icon.png'"
+                alt="썸네일"
+                class="thumbnail"
+              />
+              <div class="card-body">
+                <p th:text="${news.title}">뉴스 제목</p>
+                <p th:text="${news.description}">뉴스 설명</p>
+              </div>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </body>
 </html>

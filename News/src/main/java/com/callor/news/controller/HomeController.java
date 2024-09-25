@@ -31,46 +31,46 @@ public class HomeController {
 		this.newsDao = newsDao;
 	}
 
-	@PostConstruct
-	public void init() {
-		List<NewsVO> newNewsList = newsService.getNews();
-
-		newNewsList = newNewsList.stream().filter(news -> !news.getUrl().contains("https://removed.com"))
-				.collect(Collectors.toList());
-
-		// 번역 서비스 설정
-		String jsonPath = "C:/Users/KMS203/Desktop/news-project-436506-6f6c011f864a.json";
-		try {
-			GoogleCredentials credentials = GoogleCredentials.fromStream(new FileInputStream(jsonPath));
-			Translate translate = TranslateOptions.newBuilder().setCredentials(credentials).build().getService();
-
-			for (NewsVO news : newNewsList) {
-				try {
-					// 타이틀과 설명 번역
-					String translatedTitle = translate
-							.translate(news.getTitle(), Translate.TranslateOption.targetLanguage("ko"))
-							.getTranslatedText();
-					String translatedDescription = translate
-							.translate(news.getDescription(), Translate.TranslateOption.targetLanguage("ko"))
-							.getTranslatedText();
-
-					// 번역된 내용을 원래 필드에 저장
-					news.setTitle(translatedTitle);
-					news.setDescription(translatedDescription);
-
-					// 중복 체크 후 데이터베이스에 저장
-					if (!newsDao.exists(news.getTitle())) {
-						newsDao.insert(news);
-					}
-				} catch (Exception e) {
-					e.printStackTrace();
-					// 예외 처리
-				}
-			}
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-	}
+//	@PostConstruct
+//	public void init() {
+//		List<NewsVO> newNewsList = newsService.getNews();
+//
+//		newNewsList = newNewsList.stream().filter(news -> !news.getUrl().contains("https://removed.com"))
+//				.collect(Collectors.toList());
+//
+//		// 번역 서비스 설정
+//		String jsonPath = "C:/Users/KMS203/Desktop/news-project-436506-6f6c011f864a.json";
+//		try {
+//			GoogleCredentials credentials = GoogleCredentials.fromStream(new FileInputStream(jsonPath));
+//			Translate translate = TranslateOptions.newBuilder().setCredentials(credentials).build().getService();
+//
+//			for (NewsVO news : newNewsList) {
+//				try {
+//					// 타이틀과 설명 번역
+//					String translatedTitle = translate
+//							.translate(news.getTitle(), Translate.TranslateOption.targetLanguage("ko"))
+//							.getTranslatedText();
+//					String translatedDescription = translate
+//							.translate(news.getDescription(), Translate.TranslateOption.targetLanguage("ko"))
+//							.getTranslatedText();
+//
+//					// 번역된 내용을 원래 필드에 저장
+//					news.setTitle(translatedTitle);
+//					news.setDescription(translatedDescription);
+//
+//					// 중복 체크 후 데이터베이스에 저장
+//					if (!newsDao.exists(news.getTitle())) {
+//						newsDao.insert(news);
+//					}
+//				} catch (Exception e) {
+//					e.printStackTrace();
+//					// 예외 처리
+//				}
+//			}
+//		} catch (IOException e) {
+//			e.printStackTrace();
+//		}
+//	}
 
 	@RequestMapping(value = "/", method = RequestMethod.GET)
 	public String home(Model model) {

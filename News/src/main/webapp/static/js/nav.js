@@ -10,7 +10,7 @@ document.addEventListener("DOMContentLoaded", () => {
     let url = `${rootPath}`;
 
     if (classList.contains("news")) url += "/news/list";
-
+    if (classList.contains("media")) url += "/news/media";
     if (classList.contains("user")) {
       //   url += "/user/";
       //   url += classList[1];

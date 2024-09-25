@@ -1,7 +1,5 @@
 package com.callor.news.models;
 
-import java.util.List;
-
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -10,12 +8,15 @@ import lombok.ToString;
 
 @Getter
 @Setter
+@ToString
 @AllArgsConstructor
 @NoArgsConstructor
-@ToString
-public class NewsList {
-	private String status;
-	private int totalResults;
-	private List<NewsVO> articles;
-
+public class MediaVO {
+	private String id;
+	private String name;
+	private String description;
+	private String url;
+	private String category;
+	private String language;
+	private String country;
 }

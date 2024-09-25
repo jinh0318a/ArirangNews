@@ -10,16 +10,17 @@
   </head>
   <body>
     <div th:fragment="content" class="detail">
-      <div class="container">
+      <div class="news detail">
         <h1 th:text="${article.title}">기사 제목</h1>
+        <p th:text="${article.publishedAt}">날짜</p>
         <img
           th:src="${article.urlToImage != null} ? ${article.urlToImage} : '/news/static/images/no-image-icon.png'"
           alt="기사 이미지"
-          class="thumbnail"
+          class="detail image"
         />
         <p th:text="${article.description}">기사 내용</p>
-        <a th:href="${article.url}" target="_blank">원문 보기</a>
-        <a href="#" th:href="@{/}">홈으로 돌아가기</a>
+        <a th:href="${article.url}" target="_blank" class="origin">원문 보기</a>
+        <a href="#" th:href="@{/}" class="home">홈으로 돌아가기</a>
       </div>
     </div>
   </body>
