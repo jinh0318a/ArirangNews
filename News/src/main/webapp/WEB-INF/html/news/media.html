@@ -16,7 +16,7 @@
             등록된 미디어가 없습니다.
           </li>
           <li th:each="media : ${mediaList}" class="card media-item">
-            <a th:href="${media.url}">
+            <a th:href="${media.url}" target="_blank">
               <div class="card-body">
                 <p th:text="${media.name}">이름:</p>
                 <p th:text="${media.description}">설명:</p>

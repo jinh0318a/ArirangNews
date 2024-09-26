@@ -368,3 +368,7 @@ ul.list.media {
 .card-body p:last-child {
   color: #777; /* 설명 텍스트 색상 변경 */
 }
+
+li.no-news {
+  text-align: center;
+}
