@@ -96,10 +96,7 @@
           <li th:if="${#lists.isEmpty(newsList)}" class="no-news">
             <h1>뉴스가 없습니다.</h1>
           </li>
-          <div id="loading" th:if="${#lists.isEmpty(newsList)}">
-            <img th:src="/news/static/images/loading.gif" alt="로딩 중..." />
-          </div>
-          <div class="container news-container" th:if="${!#lists.isEmpty(newsList)}">
+          <li th:each="news : ${newsList}" class="card news-item">
             <a th:href="${news.url}" target="_blank">
               <img
                 th:src="${news.urlToImage != null} ? ${news.urlToImage} : '/news/static/images/no-image.jpg'"
