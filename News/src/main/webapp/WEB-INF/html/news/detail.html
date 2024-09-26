@@ -7,6 +7,27 @@
 >
   <head>
     <title th:text="${detail.title}">기사 제목</title>
+
+    <script>
+      function copyToClipboard(button) {
+        const url = button.getAttribute("data-url");
+        navigator.clipboard
+          .writeText(url)
+          .then(() => {
+            alert("URL이 복사되었습니다: " + url);
+          })
+          .catch((err) => {
+            console.error("복사 실패:", err);
+          });
+      }
+    </script>
+    <script>
+      function toggleShareOptions() {
+        const shareOptions = document.getElementById("shareOptions");
+        shareOptions.style.display =
+          shareOptions.style.display === "none" ? "block" : "none";
+      }
+    </script>
   </head>
   <body>
     <div th:fragment="content" class="detail">
@@ -22,7 +43,26 @@
         <a th:href="${detail.news_url}" target="_blank" class="origin"
           >원문 보기</a
         >
-        <a href="#" th:href="@{/}" class="home">홈으로 돌아가기</a>
+        <a href="#" th:href="@{/}" class="home">홈으로</a>
+        <button class="button-link" onclick="toggleShareOptions()">
+          공유하기
+        </button>
+
+        <div id="shareOptions" style="display: none">
+          <button
+            class="button-link"
+            th:data-url="${detail.news_url}"
+            onclick="copyToClipboard(this)"
+          >
+            URL 복사
+          </button>
+          <a
+            class="button-link"
+            th:href="@{https://twitter.com/intent/tweet(url=${detail.news_url}, text=${detail.title})}"
+            target="_blank"
+            >X 공유</a
+          >
+        </div>
       </div>
     </div>
   </body>
