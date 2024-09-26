@@ -39,6 +39,7 @@ nav.main {
   top: 0; /* 페이지 상단에서 고정할 위치 */
   z-index: 1000; /* 다른 요소 위에 표시 */
   width: 100%;
+  align-items: center;
 }
 
 input.search {
@@ -53,6 +54,7 @@ input.search {
 nav.main ul {
   list-style: none;
   display: flex;
+  align-items: center;
 }
 
 nav.main li {
@@ -70,7 +72,8 @@ nav.main li:hover {
   margin: 20px auto;
 }
 
-ul.list {
+ul.list,
+ul.search {
   list-style: none;
   display: flex;
   flex-direction: column;
@@ -198,7 +201,8 @@ a.home:hover {
     width: 95%;
   }
 
-  ul.list {
+  ul.list,
+  ul.search {
     flex-direction: column;
   }
 
@@ -237,7 +241,7 @@ a.home:hover {
   }
 }
 
-div.search {
+h1 {
   text-align: center;
 }
 
@@ -248,4 +252,113 @@ div.search {
 span.title {
   font-size: 1.2rem;
   font-weight: 900;
+}
+
+ul.country {
+  display: flex;
+  background-color: #0490d2;
+  color: white;
+  justify-content: center;
+  align-items: center;
+  list-style: none;
+  padding: 5px;
+  font-weight: 900;
+  font-size: 1rem;
+  gap: 10px;
+  position: sticky;
+  top: 60px;
+  z-index: 999;
+
+  li {
+    padding: 6px;
+    width: 10%;
+    text-align: center;
+    border: 2px solid transparent;
+    &:hover {
+      cursor: pointer;
+      border-bottom: 2px solid yellow;
+      transition: 0.7s;
+    }
+  }
+}
+
+.country-codes {
+  display: none;
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+  position: absolute; /* 드롭다운 위치 조정 */
+  max-height: 400px;
+  overflow-y: auto; /* 세로 스크롤 가능 */
+  background-color: #777;
+  border: 1px solid #ccc;
+  z-index: 1000;
+  white-space: nowrap;
+}
+.country {
+  position: relative; /* 드롭다운 위치를 위한 상대 위치 설정 */
+}
+.additional-item {
+  position: relative; /* 추가 항목도 드롭다운을 위해 설정 */
+}
+
+.country-codes li {
+  padding: 5px 10px;
+  cursor: pointer;
+}
+
+.country-codes li:hover {
+  background-color: #777;
+}
+
+.media-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between; /* 항목 간 간격 조정 */
+  gap: 20px;
+}
+
+.media-item {
+  display: flex;
+  width: 30% !important; /* 두 개 항목을 가로로 배치 */
+  margin-bottom: 20px; /* 아래쪽 여백 */
+  background-color: white;
+  border-radius: 8px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  border: 1px solid #e0e0e0; /* 연한 회색 경계 추가 */
+  transition: transform 0.3s;
+}
+
+@media (max-width: 768px) {
+  .media-item {
+    width: calc(100% - 10px); /* 작은 화면에서 전체 너비로 표시 */
+  }
+}
+
+ul.list.media {
+  display: flex;
+  flex-wrap: wrap; /* 여러 줄로 표시되도록 설정 */
+  justify-content: space-between;
+  list-style: none;
+  flex-direction: row;
+  gap: 20px; /* 항목 간 간격 조정 */
+}
+
+.media-item:hover {
+  transform: scale(1.05); /* 호버 시 확대 효과 */
+  border-color: #0263a6;
+}
+
+.card-body {
+  padding: 20px;
+  text-align: left; /* 텍스트 정렬 */
+}
+
+.card-body p {
+  margin-bottom: 10px; /* 각 문단 간 여백 추가 */
+  color: #333; /* 텍스트 색상 설정 */
+}
+
+.card-body p:last-child {
+  color: #777; /* 설명 텍스트 색상 변경 */
 }
