@@ -13,12 +13,12 @@
       <div class="container news-container">
         <ul class="list">
           <li th:if="${newsList == null or newsList.isEmpty()}">
-            헤드라인 뉴스가 없습니다.
+            뉴스가 없습니다.
           </li>
           <li th:each="news : ${newsList}" class="card news-item">
-            <a th:href="@{/news/article/{n_no}(n_no=${news.n_no})}">
+            <a th:href="@{/news/detail/{m_no}(m_no=${news.m_no})}">
               <img
-                th:src="${news.urlToImage != null} ? ${news.urlToImage} : '/news/static/images/no-image.jpg'"
+                th:src="${news.thum_url != null} ? ${news.thum_url} : '/news/static/images/no-image.jpg'"
                 alt="썸네일"
                 class="thumbnail"
               />

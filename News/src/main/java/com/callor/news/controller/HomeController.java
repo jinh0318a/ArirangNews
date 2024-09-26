@@ -12,8 +12,11 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import com.callor.news.dao.MainNewsDao;
 import com.callor.news.dao.NewsDao;
+import com.callor.news.models.MainNewsVO;
 import com.callor.news.models.NewsVO;
+import com.callor.news.service.MainNewsService;
 import com.callor.news.service.NewsService;
 import com.google.auth.oauth2.GoogleCredentials;
 import com.google.cloud.translate.Translate;
@@ -22,13 +25,13 @@ import com.google.cloud.translate.TranslateOptions;
 @Controller
 public class HomeController {
 
-	private final NewsService newsService;
-	private final NewsDao newsDao;
+	private final MainNewsService mainNewsService;
+	private final MainNewsDao mainNewsDao;
 
-	public HomeController(NewsService newsService, NewsDao newsDao) {
+	public HomeController(MainNewsService mainNewsService, MainNewsDao mainNewsDao) {
 		super();
-		this.newsService = newsService;
-		this.newsDao = newsDao;
+		this.mainNewsService = mainNewsService;
+		this.mainNewsDao = mainNewsDao;
 	}
 
 //	@PostConstruct
@@ -74,8 +77,8 @@ public class HomeController {
 
 	@RequestMapping(value = "/", method = RequestMethod.GET)
 	public String home(Model model) {
-		
-		List<NewsVO> newsList = newsDao.selectLatest(); 
+		mainNewsService.getMainNews();
+		List<MainNewsVO> newsList = mainNewsDao.selectLatest();
 		model.addAttribute("newsList", newsList);
 		return "home";
 	}

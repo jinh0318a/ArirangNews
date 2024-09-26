@@ -3,23 +3,23 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="com.callor.news.dao.NewsDao">
+<mapper namespace="com.callor.news.dao.MainNewsDao">
 
 	<select id="exists" resultType="boolean">
 		SELECT COUNT(*) > 0
-		FROM tbl_news
+		FROM tbl_main
 		WHERE title = #{title}
 	</select>
 
 	<insert id="insert">
-		insert into tbl_news (title, description, url,
-		urlToImage,
-		publishedAt)
+		insert into tbl_main (title, content, news_url,
+		thum_url,
+		broadcast_date)
 		values (#{title},
-		#{description},
-		#{url},
-		#{urlToImage},
-		#{publishedAt})
+		#{content},
+		#{news_url},
+		#{thum_url},
+		#{broadcast_date})
 	</insert>
 
 </mapper> 
