@@ -1,0 +1,92 @@
+1. AJAX 요청을 위한 HTML 구조
+mainPage.html에서 AJAX를 통해 특정 콘텐츠를 동적으로 불러오는 방식입니다. AJAX 요청을 보내고 서버에서 응답받은 HTML 조각을 페이지에 삽입합니다.
+
+mainPage.html
+html
+코드 복사
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>뉴스</title>
+    <link th:href="@{/static/css/main.css}" rel="stylesheet" />
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            document.querySelector(".loading").style.display = "block";
+            setTimeout(() => {
+                document.querySelector(".loading").style.display = "none";
+                getData(); // 초기 데이터 로딩
+            }, 1000);
+        });
+
+        const getData = () => {
+            fetch('/news/content') // 서버 엔드포인트
+                .then(response => response.text())
+                .then(html => {
+                    document.getElementById("content").innerHTML = html; // 응답된 HTML 삽입
+                })
+                .catch(err => {
+                    console.warn('Something went wrong.', err);
+                });
+        };
+    </script>
+</head>
+<body>
+    <nav class="main">
+        <ul>
+            <li class="home">뉴스 홈</li>
+            <li class="news list">헤드라인</li>
+            <li class="media">미디어</li>
+            <form th:action="@{/news/search}">
+                <input type="text" name="word" placeholder="검색어를 입력해주세요" class="search" />
+            </form>
+        </ul>
+    </nav>
+    <div class="loading">
+        <img src="@{/static/images/loading.png}" />
+    </div>
+    <div id="content">
+        <!-- AJAX로 로드되는 콘텐츠가 여기에 삽입됩니다. -->
+    </div>
+</body>
+</html>
+2. 서버 엔드포인트 설정
+@Controller를 사용하여 AJAX 요청을 처리하는 메서드를 작성합니다.
+
+Ctrl.java
+java
+코드 복사
+@Controller
+public class NewsController {
+    
+    @GetMapping("/news/content")
+    public String loadContent(Model model) {
+        // 여기에 데이터 로직 추가
+        model.addAttribute("articles", getNewsArticles()); // 뉴스 기사 데이터를 모델에 추가
+        return "fragments/content :: newsContent"; // 프래그먼트 반환
+    }
+}
+3. 프래그먼트 설정
+뉴스 기사를 표시하기 위한 HTML 조각을 정의합니다.
+
+fragments/content.html
+html
+코드 복사
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<body>
+    <div th:fragment="newsContent">
+        <h2>뉴스 기사</h2>
+        <div th:each="article : ${articles}">
+            <h3 th:text="${article.title}"></h3>
+            <p th:text="${article.description}"></p>
+        </div>
+    </div>
+</body>
+</html>
+4. 전체 흐름
+페이지 로드: 페이지가 로드되면 .loading 요소가 표시되고 1초 후에 로딩이 완료되며, getData() 함수가 호출됩니다.
+AJAX 요청: getData() 함수는 /news/content 엔드포인트에 AJAX 요청을 보냅니다.
+서버 응답: 서버는 fragments/content.html의 newsContent 프래그먼트를 반환합니다.
+DOM 업데이트: 응답받은 HTML 조각이 #content에 삽입되어 사용자에게 보여집니다.

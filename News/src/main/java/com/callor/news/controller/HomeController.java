@@ -1,26 +1,19 @@
 package com.callor.news.controller;
 
-import java.io.FileInputStream;
-import java.io.IOException;
 import java.util.List;
-import java.util.stream.Collectors;
 
-import javax.annotation.PostConstruct;
-
+import org.apache.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.callor.news.dao.MainNewsDao;
-import com.callor.news.dao.NewsDao;
 import com.callor.news.models.MainNewsVO;
-import com.callor.news.models.NewsVO;
 import com.callor.news.service.MainNewsService;
-import com.callor.news.service.NewsService;
-import com.google.auth.oauth2.GoogleCredentials;
-import com.google.cloud.translate.Translate;
-import com.google.cloud.translate.TranslateOptions;
 
 @Controller
 public class HomeController {
@@ -81,6 +74,8 @@ public class HomeController {
 		List<MainNewsVO> newsList = mainNewsDao.selectLatest();
 		model.addAttribute("newsList", newsList);
 		return "home";
+//		return "home :: homeContent";
 	}
 
+	
 }

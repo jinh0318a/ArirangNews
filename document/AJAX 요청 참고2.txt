@@ -1,0 +1,76 @@
+1. layout.html 구성
+layout.html을 다음과 같이 작성합니다. 이 파일은 기본 레이아웃을 정의하고, 특정 부분에 home.html의 내용을 삽입할 수 있습니다.
+
+html
+코드 복사
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>사이트 제목</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+<body>
+    <header>
+        <h1>사이트 헤더</h1>
+    </header>
+    
+    <main>
+        <div th:insert="${content}"></div> <!-- home.html의 내용을 삽입할 위치 -->
+    </main>
+
+    <footer>
+        <p>사이트 푸터</p>
+    </footer>
+</body>
+</html>
+2. home.html 작성
+home.html에서 AJAX 요청을 통해 뉴스를 가져오고, 그 결과를 layout.html의 지정된 부분에 랜더링합니다.
+
+html
+코드 복사
+<div th:fragment="content">
+    <h1>뉴스</h1>
+    <div id="newsContainer"></div>  <!-- AJAX로 뉴스가 삽입될 곳 -->
+
+    <script>
+        $(document).ready(function() {
+            $.ajax({
+                url: '/news',  // 뉴스 데이터를 가져오는 엔드포인트
+                method: 'GET',
+                success: function(data) {
+                    $('#newsContainer').html(data);  // 뉴스 HTML을 삽입
+                },
+                error: function(err) {
+                    console.error('Error fetching news:', err);
+                }
+            });
+        });
+    </script>
+</div>
+3. 컨트롤러 수정
+컨트롤러에서 home.html을 렌더링하도록 설정합니다.
+
+java
+코드 복사
+@RequestMapping(value = "/", method = RequestMethod.GET)
+public String home(Model model) {
+    return "home";  // home.html을 렌더링
+}
+
+@RequestMapping(value = "/news", method = RequestMethod.GET)
+public String fetchNews(Model model) {
+    List<MainNewsVO> newsList = mainNewsDao.selectLatest();
+    model.addAttribute("newsList", newsList);
+    return "fragments/news";  // HTML 조각 경로
+}
+4. HTML 조각 작성
+src/main/webapp/WEB-INF/html/fragments/news.html 파일에서 뉴스 리스트를 출력하는 HTML 조각을 작성합니다.
+
+html
+코드 복사
+<ul>
+    <th:block th:each="news : ${newsList}">
+        <li th:text="${news.title}">뉴스 제목</li>  <!-- 뉴스 제목 출력 -->
+    </th:block>
+</ul>

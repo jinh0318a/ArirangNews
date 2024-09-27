@@ -51,6 +51,8 @@ public class NewsController {
 			// 모델에 뉴스 리스트 추가
 			model.addAttribute("newsList", newsList);
 			return "news/list";
+
+			// return "news/list :: headlineContent";
 		} catch (Exception e) {
 			e.printStackTrace();
 			model.addAttribute("error", "뉴스 목록을 가져오는 데 실패했습니다.");
@@ -107,5 +109,7 @@ public class NewsController {
 		model.addAttribute("mediaList", mediaList);
 
 		return "news/media";
+		// return "news/media :: mediaContent";
 	}
+
 }

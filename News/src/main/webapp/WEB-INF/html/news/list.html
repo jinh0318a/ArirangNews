@@ -113,3 +113,92 @@
     </div>
   </body>
 </html>
+
+<!-- <div th:fragment="headlineContent" class="list">
+  <nav>
+    <ul class="country">
+      <li><a th:href="@{/news/list?country=kr}">한국</a></li>
+      <li><a th:href="@{/news/list?country=us}">미국</a></li>
+      <li><a th:href="@{/news/list?country=cn}">중국</a></li>
+      <li><a th:href="@{/news/list?country=jp}">일본</a></li>
+      <li
+        class="additional-item"
+        onmouseover="showCodes(this)"
+        onmouseout="hideCodes(this)"
+      >
+        더보기
+        <ul class="country-codes">
+          <li onclick="navigateToCountry('ae')">AE - 아랍에미리트</li>
+          <li onclick="navigateToCountry('ar')">AR - 아르헨티나</li>
+          <li onclick="navigateToCountry('at')">AT - 오스트리아</li>
+          <li onclick="navigateToCountry('au')">AU - 오스트레일리아</li>
+          <li onclick="navigateToCountry('be')">BE - 벨기에</li>
+          <li onclick="navigateToCountry('bg')">BG - 불가리아</li>
+          <li onclick="navigateToCountry('br')">BR - 브라질</li>
+          <li onclick="navigateToCountry('ca')">CA - 캐나다</li>
+          <li onclick="navigateToCountry('ch')">CH - 스위스</li>
+          <li onclick="navigateToCountry('co')">CO - 콜롬비아</li>
+          <li onclick="navigateToCountry('cu')">CU - 쿠바</li>
+          <li onclick="navigateToCountry('cz')">CZ - 체코</li>
+          <li onclick="navigateToCountry('de')">DE - 독일</li>
+          <li onclick="navigateToCountry('eg')">EG - 이집트</li>
+          <li onclick="navigateToCountry('fr')">FR - 프랑스</li>
+          <li onclick="navigateToCountry('gb')">GB - 영국</li>
+          <li onclick="navigateToCountry('gr')">GR - 그리스</li>
+          <li onclick="navigateToCountry('hk')">HK - 홍콩</li>
+          <li onclick="navigateToCountry('hu')">HU - 헝가리</li>
+          <li onclick="navigateToCountry('id')">ID - 인도네시아</li>
+          <li onclick="navigateToCountry('ie')">IE - 아일랜드</li>
+          <li onclick="navigateToCountry('il')">IL - 이스라엘</li>
+          <li onclick="navigateToCountry('in')">IN - 인도</li>
+          <li onclick="navigateToCountry('it')">IT - 이탈리아</li>
+          <li onclick="navigateToCountry('lt')">LT - 리투아니아</li>
+          <li onclick="navigateToCountry('lv')">LV - 라트비아</li>
+          <li onclick="navigateToCountry('ma')">MA - 모로코</li>
+          <li onclick="navigateToCountry('mx')">MX - 멕시코</li>
+          <li onclick="navigateToCountry('my')">MY - 말레이시아</li>
+          <li onclick="navigateToCountry('ng')">NG - 나이지리아</li>
+          <li onclick="navigateToCountry('nl')">NL - 니카라과</li>
+          <li onclick="navigateToCountry('no')">NO - 노르웨이</li>
+          <li onclick="navigateToCountry('nz')">NZ - 뉴질랜드</li>
+          <li onclick="navigateToCountry('ph')">PH - 필리핀</li>
+          <li onclick="navigateToCountry('pl')">PL - 폴란드</li>
+          <li onclick="navigateToCountry('pt')">PT - 포르투갈</li>
+          <li onclick="navigateToCountry('ro')">RO - 루마니아</li>
+          <li onclick="navigateToCountry('rs')">RS - 세르비아</li>
+          <li onclick="navigateToCountry('ru')">RU - 러시아</li>
+          <li onclick="navigateToCountry('sa')">SA - 사우디아라비아</li>
+          <li onclick="navigateToCountry('se')">SE - 스웨덴</li>
+          <li onclick="navigateToCountry('sg')">SG - 싱가포르</li>
+          <li onclick="navigateToCountry('si')">SI - 슬로베니아</li>
+          <li onclick="navigateToCountry('sk')">SK - 슬로바키아</li>
+          <li onclick="navigateToCountry('th')">TH - 태국</li>
+          <li onclick="navigateToCountry('tr')">TR - 튀르키예</li>
+          <li onclick="navigateToCountry('tw')">TW - 대만</li>
+          <li onclick="navigateToCountry('ua')">UA - 우크라이나</li>
+          <li onclick="navigateToCountry('ve')">VE - 베네수엘라</li>
+          <li onclick="navigateToCountry('za')">ZA - 남아프리카 공화국</li>
+        </ul>
+      </li>
+    </ul>
+  </nav>
+  <div class="container news-container">
+    <ul class="list">
+      <li th:if="${#lists.isEmpty(newsList)}" class="no-news">
+        <h1>뉴스가 없습니다.</h1>
+      </li>
+      <li th:each="news : ${newsList}" class="card news-item">
+        <a th:href="${news.url}" target="_blank">
+          <img
+            th:src="${news.urlToImage != null} ? ${news.urlToImage} : '/news/static/images/no-image.jpg'"
+            alt="썸네일"
+            class="thumbnail"
+          />
+          <div class="card-body">
+            <span th:text="${news.title}" class="title">뉴스 제목</span>
+          </div>
+        </a>
+      </li>
+    </ul>
+  </div>
+</div> -->

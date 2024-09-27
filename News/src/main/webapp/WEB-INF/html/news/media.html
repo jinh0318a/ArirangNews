@@ -31,3 +31,25 @@
     </div>
   </body>
 </html>
+
+<!-- media.html
+<div th:fragment="mediaContent" class="list">
+  <div class="container media-container">
+    <ul class="list media">
+      <li th:if="${mediaList == null or mediaList.isEmpty()}">
+        등록된 미디어가 없습니다.
+      </li>
+      <li th:each="media : ${mediaList}" class="card media-item">
+        <a th:href="${media.url}" target="_blank">
+          <div class="card-body">
+            <p th:text="${media.name}">이름:</p>
+            <p th:text="${media.description}">설명:</p>
+            <p th:text="'카테고리: ' + ${media.category}">카테고리:</p>
+            <p th:text="'언어: ' + ${media.language}">언어:</p>
+            <p th:text="'국가: ' + ${media.country}">국가:</p>
+          </div>
+        </a>
+      </li>
+    </ul>
+  </div>
+</div> -->
