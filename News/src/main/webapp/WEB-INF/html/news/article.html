@@ -56,6 +56,13 @@
           </button>
           <a
             class="button-link"
+            th:href="@{https://share.naver.com/web/shareView(url=${detail.news_url}, title=${detail.title})}"
+            target="_blank"
+          >
+            네이버 공유하기
+          </a>
+          <a
+            class="button-link"
             th:href="@{https://twitter.com/intent/tweet(url=${article.url}, text=${article.title})}"
             target="_blank"
             >X 공유</a
