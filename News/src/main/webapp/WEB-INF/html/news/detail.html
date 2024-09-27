@@ -20,8 +20,7 @@
             console.error("복사 실패:", err);
           });
       }
-    </script>
-    <script>
+
       function toggleShareOptions() {
         const shareOptions = document.getElementById("shareOptions");
         shareOptions.style.display =
@@ -56,6 +55,13 @@
           >
             URL 복사
           </button>
+          <a
+            class="button-link"
+            th:href="@{https://share.naver.com/web/shareView(url=${detail.news_url}, title=${detail.title})}"
+            target="_blank"
+          >
+            네이버 공유하기
+          </a>
           <a
             class="button-link"
             th:href="@{https://twitter.com/intent/tweet(url=${detail.news_url}, text=${detail.title})}"
