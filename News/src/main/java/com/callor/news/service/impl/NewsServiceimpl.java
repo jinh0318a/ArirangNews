@@ -157,7 +157,7 @@ public class NewsServiceimpl implements NewsService {
 		// API 요청 URL 생성
 		String apiKey = APIConfig.API_KEY;
 		String apiUrl = String.format(
-				"https://newsapi.org/v2/everything?q=%s&from=%s&to=%s&sortBy=popularity&apiKey=%s", translatedWord,
+				"https://newsapi.org/v2/everything?q=%s&from=%s&to=%s&sortBy=popularity&pageSize=20&apiKey=%s", translatedWord,
 				yesterday, yesterday, apiKey);
 
 		// 뉴스 API 호출

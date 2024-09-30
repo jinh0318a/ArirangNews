@@ -32,25 +32,3 @@
     </div>
   </body>
 </html>
-
-<!-- <div th:fragment="homeContent" class="list">
-  <div class="container news-container">
-    <ul class="list">
-      <li th:if="${newsList == null or newsList.isEmpty()}">
-        뉴스가 없습니다.
-      </li>
-      <li th:each="news : ${newsList}" class="card news-item">
-        <a th:href="@{/news/detail/{m_no}(m_no=${news.m_no})}">
-          <img
-            th:src="${news.thum_url != null} ? ${news.thum_url} : '/news/static/images/no-image.jpg'"
-            alt="썸네일"
-            class="thumbnail"
-          />
-          <div class="card-body">
-            <span th:text="${news.title}" class="title">뉴스 제목</span>
-          </div>
-        </a>
-      </li>
-    </ul>
-  </div>
-</div> -->

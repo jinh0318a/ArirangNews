@@ -15,21 +15,34 @@
       rel="stylesheet"
     />
     <script th:inline="javascript">
-      const rootPath = /*[[@{/.}]]*/
+      const rootPath =
+        /*[[@{/.}]]*/
+        function showLoading() {
+          document.getElementById("loading").style.display = "flex";
+        };
+
+      function hideLoading() {
+        document.getElementById("loading").style.display = "none";
+      }
+
+      window.addEventListener("load", function () {
+        hideLoading();
+      });
+
+      document.addEventListener("DOMContentLoaded", function () {
+        const form = document.querySelector("form");
+        form.addEventListener("submit", function (event) {
+          showLoading();
+        });
+
+        showLoading();
+      });
     </script>
     <script
       src="../../static/js/nav.js"
       th:src="@{/static/js/nav.js}"
       th:inline="javascript"
     ></script>
-    <!-- <script>
-      document.addEventListener("DOMContentLoaded", function () {
-        setTimeout(() => {
-          document.querySelector(".loading").style.display = "none";
-          document.getElementById("content").style.display = "block";
-        }, 1000);
-      });
-    </script> -->
   </head>
   <body>
     <nav class="main">
@@ -44,57 +57,15 @@
             placeholder="검색어를 입력해주세요"
             class="search"
           />
+          <button type="submit">검색</button>
         </form>
       </ul>
     </nav>
-    <!-- <div class="loading" style="display: none">
+    <div class="loading" style="display: none" id="loading">
       <img src="/news/static/images/loading.png" alt="Loading..." />
-    </div> -->
+    </div>
     <div id="content">
       <section class="main" th:replace="~{::content}"></section>
     </div>
   </body>
 </html>
-
-<!-- <!DOCTYPE html>
-<html lang="ko" xmlns:th="http://www.thymeleaf.org">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>뉴스</title>
-    <link
-      href="../../static/css/main.css"
-      th:href="@{/static/css/main.css}"
-      rel="stylesheet"
-    />
-    <script th:inline="javascript">
-      const rootPath = /*[[@{/.}]]*/
-    </script>
-    <script
-      src="../../static/js/nav.js"
-      th:src="@{/static/js/nav.js}"
-      th:inline="javascript"
-    ></script>
-  </head>
-  <body>
-    <nav class="main">
-      <ul>
-        <li class="home">뉴스 홈</li>
-        <li class="news list">헤드라인</li>
-        <li class="media">미디어</li>
-        <form th:action="@{/news/search}">
-          <input
-            type="text"
-            name="word"
-            placeholder="검색어를 입력해주세요"
-            class="search"
-          />
-        </form>
-      </ul>
-    </nav>
-    <div class="loading" style="display: none">
-      <img src="/news/static/images/loading.png" alt="Loading..." />
-    </div>
-    <div id="content" style="display: none"></div>
-  </body>
-</html> -->
