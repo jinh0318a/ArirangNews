@@ -68,6 +68,24 @@ nav.main li:hover {
   border-radius: 5px;
 }
 
+form {
+  display: flex;
+  align-items: center;
+}
+
+nav.main button {
+  background-color: white;
+  padding: 6px 20px;
+  color: black;
+
+  &:hover {
+    cursor: pointer;
+    background-color: black;
+    color: white;
+    border-radius: 5px;
+  }
+}
+
 .container {
   width: 80%;
   margin: 20px auto;
