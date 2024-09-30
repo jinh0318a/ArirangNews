@@ -75,7 +75,7 @@ form {
 
 nav.main button {
   background-color: white;
-  padding: 6px 20px;
+  padding: 6px 20 px;
   color: black;
 
   &:hover {
