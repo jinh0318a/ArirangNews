@@ -4,7 +4,7 @@
 
 - https://newsapi.org/ 의 API를 활용하여 국제뉴스를 제공 받고, Googl Cloud Translation 을 활용하여 번역하여 보여주는 사이트
 
-- 개발 기간 : 2024-09-23 ~ 2024-10-18
+- 개발 기간 : 2024-09-23 ~ 2024-10-08
 
 - 기술스택 : Spring MVC, MySQL, VSCode
 
